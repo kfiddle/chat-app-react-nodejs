@@ -5,56 +5,38 @@ import { io } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../utils/APIRoutes";
 import ChatContainer from "../components/ChatContainer";
-import Contacts from "../components/Contacts";
-import Welcome from "../components/Welcome";
+// import Contacts from "../components/Contacts";
+// import Welcome from "../components/Welcome";
 import Header from "../components/header/Header";
 
 export default function Chat() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const socket = useRef();
-    const [contacts, setContacts] = useState([]);
-    const [currentChat, setCurrentChat] = useState(undefined);
-    const [currentUser, setCurrentUser] = useState(undefined);
-    useEffect(async () => {
-        // if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-        //   navigate("/login");
-        // } else {
-        //   setCurrentUser(
-        //     await JSON.parse(
-        //       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-        //     )
-        //   );
-        // }
+    const [currentUser, setCurrentUser] = useState(null);
 
-        setCurrentUser(await JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)));
-    }, []);
     useEffect(() => {
         if (currentUser) {
             socket.current = io(host);
-            socket.current.emit("add-user", currentUser._id);
+            socket.current.emit("add-user", currentUser.id); // "ken" or "julie"
         }
     }, [currentUser]);
 
-    useEffect(async () => {
-        if (currentUser) {
-            if (currentUser.isAvatarImageSet) {
-                const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-                setContacts(data.data);
-            } else {
-                navigate("/setAvatar");
-            }
-        }
-    }, [currentUser]);
-    const handleChatChange = (chat) => {
-        setCurrentChat(chat);
+    const handleUserChange = (user) => {
+        setCurrentUser(user);
     };
+
+    // const handleChatChange = (chat) => {
+    //     setCurrentChat(chat);
+    // };
+
     return (
         <>
-            <Header />
+            <Header onUserChange={handleUserChange} />
             <Container>
                 <div className="container">
-                    <Contacts contacts={contacts} changeChat={handleChatChange} />
-                    {currentChat === undefined ? <Welcome /> : <ChatContainer currentChat={currentChat} socket={socket} />}
+                    {/* <Contacts contacts={contacts} changeChat={handleChatChange} /> */}
+                    {/* {currentChat === undefined ? <Welcome /> : <ChatContainer currentChat={currentChat} socket={socket} />} */}
+                    <ChatContainer socket={socket}/>
                 </div>
             </Container>
         </>
@@ -70,6 +52,7 @@ const Container = styled.div`
     gap: 1rem;
     align-items: center;
     background-color: #131324;
+    // background-color: red;
     .container {
         height: 85vh;
         width: 85vw;

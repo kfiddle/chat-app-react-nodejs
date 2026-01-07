@@ -1,15 +1,15 @@
 import React from "react";
 import styles from "./Header.module.css";
 
-const Header = () => {
+const Header = ({ onUserChange }) => {
     const handleKenClick = () => {
-        console.log("Ken");
+        onUserChange({ id: "ken", name: "Ken" });
     };
 
     const handleJulieClick = () => {
-        console.log("Julie");
+        onUserChange({ id: "julie", name: "Julie" });
     };
-
+    
     return (
         <header className={styles.header}>
             <div className={styles.logoDiv}>

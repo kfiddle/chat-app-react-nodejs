@@ -21,3 +21,23 @@ body {
 .Toastify__toast-theme--dark {
   background-color: #00000076 !important;
 }
+
+@font-face {
+  font-family: 'Plein-LightItalic';
+  src: url('./assets/fonts/Plein-LightItalic.woff2') format('woff2'),
+    url('./assets/fonts/Plein-LightItalic.woff') format('woff'),
+    url('./assets/fonts/Plein-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-display: swap;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Asap-Regular';
+  src: url('./assets/fonts/Asap-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Asap-Regular.woff') format('woff'),
+    url('./assets/fonts/Asap-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}

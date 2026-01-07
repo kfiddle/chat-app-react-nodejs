@@ -1,0 +1,91 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 2rem;
+    background: linear-gradient(135deg,
+            rgba(44, 62, 80, 0.95),
+            rgba(52, 73, 94, 0.95));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 5rem;
+}
+
+.logoDiv {
+    display: flex;
+    align-items: center;
+    width: 20%;
+}
+
+.logo {
+    font-family: "Plein-LightItalic", sans-serif;
+    color: #bbcbcf;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    margin: 0;
+}
+
+.highlight {
+    color: #f8f7f5;
+    font-weight: 900;
+    font-size: 1.2em;
+}
+
+.navContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 80%;
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navItem {
+    margin: 0 0.5rem;
+}
+
+/* Make buttons look like the old links */
+.navItem button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+/* Treat both states the same visually for now */
+.inactive .label {
+    color: #a0a2a4;
+}
+
+.inactive:hover .label {
+    color: white;
+}

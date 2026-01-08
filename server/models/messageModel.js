@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 
-const MessageSchema = mongoose.Schema(
+const MessageSchema = new mongoose.Schema(
   {
-    message: {
-      text: { type: String, required: true },
+    from: {
+      type: String, // "ken" or "julie"
+      required: true,
     },
-    users: Array,
-    sender: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    originalText: {
+      type: String,
+      required: true,
+    },
+    translatedText: {
+      type: String, // after OpenAI translation
       required: true,
     },
   },
@@ -17,4 +20,4 @@ const MessageSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Messages", MessageSchema);
+module.exports = mongoose.model("Message", MessageSchema);

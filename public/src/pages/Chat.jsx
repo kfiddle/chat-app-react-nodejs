@@ -36,7 +36,7 @@ export default function Chat() {
                 <div className="container">
                     {/* <Contacts contacts={contacts} changeChat={handleChatChange} /> */}
                     {/* {currentChat === undefined ? <Welcome /> : <ChatContainer currentChat={currentChat} socket={socket} />} */}
-                    <ChatContainer socket={socket}/>
+                    <ChatContainer currentUser={currentUser} socket={socket}/>
                 </div>
             </Container>
         </>

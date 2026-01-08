@@ -10,8 +10,6 @@ const socket = require("socket.io");
 app.use(cors());
 app.use(express.json());
 
-console.log("OPENAI_API_KEY present in server:", !!process.env.OPENAI_API_KEY);
-
 
 mongoose
   .connect(process.env.MONGO_URL, {

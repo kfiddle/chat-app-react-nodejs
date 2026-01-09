@@ -92,13 +92,7 @@ export default function ChatContainer({ socket, currentUser }) {
 
     return (
         <Container>
-            <div className="chat-header">
-                <div className="user-details">
-                    <div className="username">
-                        <h3>Ken &amp; Julie</h3>
-                    </div>
-                </div>
-            </div>
+            {/* <div className="chat-header"></div> */}
             <div className="chat-messages">
                 {messages.map((message, index) => (
                     <div ref={scrollRef} key={index}>
@@ -118,7 +112,9 @@ export default function ChatContainer({ socket, currentUser }) {
 
 const Container = styled.div`
     display: grid;
-    grid-template-rows: 10% 80% 10%;
+    width: 100%;
+    // background: red;
+    grid-template-rows: 80% 20%;
     gap: 0.1rem;
     overflow: hidden;
     @media screen and (min-width: 720px) and (max-width: 1080px) {

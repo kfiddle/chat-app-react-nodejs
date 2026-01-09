@@ -25,17 +25,11 @@ export default function Chat() {
         setCurrentUser(user);
     };
 
-    // const handleChatChange = (chat) => {
-    //     setCurrentChat(chat);
-    // };
-
     return (
         <>
-            <Header onUserChange={handleUserChange} />
+            <Header onUserChange={handleUserChange} currentUser={currentUser} />
             <Container>
                 <div className="container">
-                    {/* <Contacts contacts={contacts} changeChat={handleChatChange} /> */}
-                    {/* {currentChat === undefined ? <Welcome /> : <ChatContainer currentChat={currentChat} socket={socket} />} */}
                     <ChatContainer currentUser={currentUser} socket={socket}/>
                 </div>
             </Container>
@@ -52,15 +46,11 @@ const Container = styled.div`
     gap: 1rem;
     align-items: center;
     background-color: #131324;
-    // background-color: red;
     .container {
         height: 85vh;
-        width: 85vw;
+        width: 100vw;
         background-color: #00000076;
-        display: grid;
-        grid-template-columns: 25% 75%;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
-            grid-template-columns: 35% 65%;
         }
     }
 `;

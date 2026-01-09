@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Header.module.css";
 
-const Header = ({ onUserChange }) => {
+const Header = ({ onUserChange, currentUser }) => {
     const handleKenClick = () => {
         onUserChange({ id: "ken", name: "Ken" });
     };
@@ -9,7 +9,7 @@ const Header = ({ onUserChange }) => {
     const handleJulieClick = () => {
         onUserChange({ id: "julie", name: "Julie" });
     };
-    
+
     return (
         <header className={styles.header}>
             <div className={styles.logoDiv}>
@@ -23,19 +23,17 @@ const Header = ({ onUserChange }) => {
                 <nav className={styles.nav}>
                     <ul>
                         <li className={styles.navItem}>
-                            <button type="button" className={styles.inactive} onClick={handleKenClick}>
+                            <button type="button" className={currentUser?.id === "julie" ? styles.active : styles.inactive} onClick={handleJulieClick}>
                                 <span className={styles.label}>Julie</span>
                             </button>
                         </li>
                         <li className={styles.navItem}>
-                            <button type="button" className={styles.inactive} onClick={handleJulieClick}>
+                            <button type="button" className={currentUser?.id === "ken" ? styles.active : styles.inactive} onClick={handleKenClick}>
                                 <span className={styles.label}>Ken</span>
                             </button>
                         </li>
                     </ul>
                 </nav>
-
-                {/* Right side user area removed for now */}
             </div>
         </header>
     );

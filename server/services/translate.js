@@ -1,4 +1,34 @@
-// // services/translate.js
+
+const { Translate } = require('@google-cloud/translate').v2;
+
+const translate = new Translate({
+  key: process.env.GOOGLE_TRANSLATE_API_KEY,
+});
+
+/**
+ * Translate a message between Ken and Julie.
+ * @param {Object} params
+ * @param {"ken"|"julie"} params.from - Who sent the original text.
+ * @param {string} params.text - Original message text.
+ * @returns {Promise<string>} Translated text.
+ */
+async function translateMessage({ from, text }) {
+  const isKen = from === "ken";
+  const targetLang = isKen ? "zh-CN" : "en"; // zh-CN = Simplified Chinese, en = English
+
+  const [translation] = await translate.translate(text, targetLang);
+  return translation;
+}
+
+module.exports = { translate: translateMessage };
+
+
+
+
+
+
+
+
 // const { OpenAI } = require("openai");
 
 // const openAI = new OpenAI({

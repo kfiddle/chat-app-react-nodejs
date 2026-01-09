@@ -78,14 +78,21 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-/* Treat both states the same visually for now */
+/* Inactive state - dimmed */
 .inactive .label {
     color: #a0a2a4;
 }
 
 .inactive:hover .label {
     color: white;
+}
+
+/* Active state - bright with underline */
+.active .label {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
 }

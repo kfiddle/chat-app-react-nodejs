@@ -90,16 +90,21 @@ export default function ChatContainer({ socket, currentUser }) {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    // Helper to get the text to display based on current user
+    const getDisplayText = (message) => {
+        // If this is your own message, show what you wrote (originalText)
+        // If it's the other person's message, show the translation (translatedText)
+        return message.fromSelf ? message.originalText : message.translatedText;
+    };
+
     return (
         <Container>
-            {/* <div className="chat-header"></div> */}
             <div className="chat-messages">
                 {messages.map((message, index) => (
                     <div ref={scrollRef} key={index}>
                         <div className={`message ${message.fromSelf ? "sended" : "recieved"}`}>
                             <div className="content">
-                                <p>{message.translatedText}</p>
-                                <small style={{ opacity: 0.7 }}>{message.originalText}</small>
+                                <p>{getDisplayText(message)}</p>
                             </div>
                         </div>
                     </div>
@@ -112,67 +117,60 @@ export default function ChatContainer({ socket, currentUser }) {
 
 const Container = styled.div`
     display: grid;
+    grid-template-rows: 1fr auto;
     width: 100%;
-    // background: red;
-    grid-template-rows: 80% 20%;
+    height: 100%;
     gap: 0.1rem;
     overflow: hidden;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-        grid-template-rows: 15% 70% 15%;
-    }
-    .chat-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 2rem;
-        .user-details {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            .username {
-                h3 {
-                    color: white;
-                }
-            }
-        }
-    }
+
     .chat-messages {
         padding: 1rem 2rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100%;
+
         &::-webkit-scrollbar {
             width: 0.2rem;
-            &-thumb {
-                background-color: #ffffff39;
-                width: 0.1rem;
-                border-radius: 1rem;
-            }
         }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #ffffff39;
+            border-radius: 1rem;
+        }
+
         .message {
             display: flex;
             align-items: center;
+            width: 100%;
+
             .content {
-                max-width: 40%;
+                max-width: 60%;
                 overflow-wrap: break-word;
                 padding: 1rem;
                 font-size: 1.1rem;
                 border-radius: 1rem;
                 color: #d1d1d1;
+
                 @media screen and (min-width: 720px) and (max-width: 1080px) {
                     max-width: 70%;
                 }
             }
         }
+
         .sended {
             justify-content: flex-end;
+
             .content {
                 background-color: #4f04ff21;
             }
         }
+
         .recieved {
             justify-content: flex-start;
+
             .content {
                 background-color: #9900ff20;
             }

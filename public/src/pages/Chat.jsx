@@ -5,19 +5,16 @@ import { io } from "socket.io-client";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../utils/APIRoutes";
 import ChatContainer from "../components/ChatContainer";
-// import Contacts from "../components/Contacts";
-// import Welcome from "../components/Welcome";
 import Header from "../components/header/Header";
 
 export default function Chat() {
-    // const navigate = useNavigate();
     const socket = useRef();
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
         if (currentUser) {
             socket.current = io(host);
-            socket.current.emit("add-user", currentUser.id); // "ken" or "julie"
+            socket.current.emit("add-user", currentUser.id);
         }
     }, [currentUser]);
 
@@ -30,7 +27,7 @@ export default function Chat() {
             <Header onUserChange={handleUserChange} currentUser={currentUser} />
             <Container>
                 <div className="container">
-                    <ChatContainer currentUser={currentUser} socket={socket}/>
+                    <ChatContainer currentUser={currentUser} socket={socket} />
                 </div>
             </Container>
         </>
@@ -38,19 +35,20 @@ export default function Chat() {
 }
 
 const Container = styled.div`
-    height: 100vh;
+    height: calc(100vh - 5rem); /* subtract header height */
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
     align-items: center;
     background-color: #131324;
+    padding: 1rem 0;
+
     .container {
-        height: 85vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
+        max-width: 1400px; /* optional: constrain max width on large screens */
         background-color: #00000076;
-        @media screen and (min-width: 720px) and (max-width: 1080px) {
-        }
+        display: flex;
+        flex-direction: column;
     }
 `;

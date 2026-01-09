@@ -1,26 +1,47 @@
 
+// services/translate.js
 const { Translate } = require('@google-cloud/translate').v2;
 
-const translate = new Translate({
-  key: process.env.GOOGLE_TRANSLATE_API_KEY,
+const googleTranslate = new Translate({
+    key: process.env.GOOGLE_TRANSLATE_API_KEY,
 });
 
 /**
- * Translate a message between Ken and Julie.
- * @param {Object} params
- * @param {"ken"|"julie"} params.from - Who sent the original text.
- * @param {string} params.text - Original message text.
- * @returns {Promise<string>} Translated text.
+ * Detect if text contains Chinese characters
  */
-async function translateMessage({ from, text }) {
-  const isKen = from === "ken";
-  const targetLang = isKen ? "zh-CN" : "en"; // zh-CN = Simplified Chinese, en = English
-
-  const [translation] = await translate.translate(text, targetLang);
-  return translation;
+function isChinese(text) {
+    // Match any Chinese character (CJK Unified Ideographs range)
+    const chineseRegex = /[\u4e00-\u9fff\u3400-\u4dbf]/;
+    return chineseRegex.test(text);
 }
 
-module.exports = { translate: translateMessage };
+/**
+ * Translate message with bypass logic for manual translations
+ */
+async function translate({ from, text }) {
+    const isKen = from === "ken";
+
+    // If Ken sends Chinese, assume he translated it himself - pass through
+    if (isKen && isChinese(text)) {
+        console.log("Ken sent Chinese - bypassing translation");
+        return text; // Return as-is
+    }
+
+    // If Julie sends English (non-Chinese), assume she translated it - pass through
+    if (!isKen && !isChinese(text)) {
+        console.log("Julie sent English - bypassing translation");
+        return text; // Return as-is
+    }
+
+    // Otherwise, translate normally
+    const targetLang = isKen ? "zh-CN" : "en";
+
+    const [translation] = await googleTranslate.translate(text, targetLang);
+    return translation;
+}
+
+module.exports = { translate };
+
 
 
 

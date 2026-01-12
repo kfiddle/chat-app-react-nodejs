@@ -1,3 +1,5 @@
 node_modules
 .env
 server/.env
+public/.env
+public/.env.local
